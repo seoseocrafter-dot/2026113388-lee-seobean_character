@@ -5,80 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Echomo (에코모) - 소리 수집가</title>
     <style>
-        /* 별빛 배경 스타일 */
+        /* 1. 별빛 배경 & 전체 레이아웃 */
         body { 
-            background: radial-gradient(circle at center, #fcfdfe 0%, #f0f6ff 100%);
-            font-family: 'Apple SD Gothic Neo', sans-serif; 
+            background: radial-gradient(circle at center, #fcfdfe 0%, #eef5ff 100%);
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; 
             display: flex; justify-content: center; align-items: flex-start; 
             min-height: 100vh; margin: 0; padding: 40px 20px; color: #555; 
             position: relative; overflow-x: hidden; 
         }
+
+        /* 별 반짝임 애니메이션 */
         @keyframes twinklestar { 
             0%, 100% { opacity: 0; transform: scale(0.5); } 
-            50% { opacity: 0.7; transform: scale(1.2); } 
+            50% { opacity: 0.8; transform: scale(1.2); } 
         }
         .star { position: absolute; background-color: #88aaff; border-radius: 50%; animation: twinklestar infinite ease-in-out; z-index: -1; }
-        .star1 { width: 3px; height: 3px; top: 15%; left: 10%; animation-duration: 3s; }
-        .star2 { width: 5px; height: 5px; top: 30%; left: 80%; animation-duration: 5s; }
-        .star3 { width: 2px; height: 2px; top: 60%; left: 20%; animation-duration: 4s; }
-        .star4 { width: 4px; height: 4px; top: 80%; left: 70%; animation-duration: 6s; }
+        /* 별 위치 설정 */
+        .star1 { width: 4px; height: 4px; top: 10%; left: 15%; animation-duration: 3s; }
+        .star2 { width: 6px; height: 6px; top: 25%; left: 85%; animation-duration: 5s; }
+        .star3 { width: 3px; height: 3px; top: 50%; left: 5%; animation-duration: 4s; }
+        .star4 { width: 5px; height: 5px; top: 75%; left: 90%; animation-duration: 6s; }
+        .star5 { width: 4px; height: 4px; top: 85%; left: 20%; animation-duration: 4.5s; }
 
-        /* 소프트 모찌 카드 스타일 */
-        .container { background: white; padding: 60px 45px; border-radius: 50px; box-shadow: 0 25px 50px rgba(136, 170, 255, 0.07); text-align: center; max-width: 680px; width: 100%; position: relative; z-index: 1; }
-        h1 { color: #88aaff; font-size: 3.2em; margin-bottom: 8px; letter-spacing: -1.5px; }
+        /* 2. 메인 컨테이너 (모찌 스타일) */
+        .container { 
+            background: white; padding: 60px 45px; border-radius: 50px; 
+            box-shadow: 0 25px 50px rgba(136, 170, 255, 0.1); 
+            text-align: center; max-width: 680px; width: 100%; position: relative; z-index: 1; 
+        }
+
+        h1 { color: #88aaff; font-size: 3.2em; margin-bottom: 8px; letter-spacing: -1.5px; font-weight: 700; }
         .intro { font-size: 1.2em; color: #8fa0ac; margin-bottom: 55px; }
+
+        /* 캐릭터 둥실둥실 애니메이션 */
         @keyframes floatCute { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
-        .character-img { width: 100%; max-width: 320px; border-radius: 40px; margin: 0 auto 60px; display: block; animation: floatCute 5s ease-in-out infinite; box-shadow: 0 10px 25px rgba(136, 170, 255, 0.15); }
-        .section { text-align: left; margin-top: 70px; }
-        .section h3 { color: #88aaff; background: #f0f6ff; padding: 12px 20px; border-radius: 15px; margin-bottom: 25px; font-size: 1.4em; display: inline-block; }
-        .gallery-item { background: #fafcfd; border-radius: 35px; padding: 30px; border: 2px solid #f0f6ff; margin-bottom: 30px; }
-        .gallery-item img { width: 100%; border-radius: 20px; margin-bottom: 15px; }
-        .audio-player { width: 100%; margin-top: 10px; }
-        .tag { background: #f0f6ff; color: #88aaff; padding: 5px 15px; border-radius: 50px; font-size: 0.8em; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .character-img { width: 100%; max-width: 330px; border-radius: 40px; margin: 0 auto 65px; display: block; animation: floatCute 6s ease-in-out infinite; box-shadow: 0 10px 25px rgba(136, 170, 255, 0.15); }
+
+        /* 3. 섹션 스타일 */
+        .section { text-align: left; margin-top: 75px; }
+        .section h3 { color: #88aaff; background: #f0f6ff; padding: 12px 20px; border-radius: 15px; margin-bottom: 30px; font-size: 1.4em; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; }
+
+        /* 삼면도 이미지 스타일 */
+        .orthographic-view { background: #fafcfd; border-radius: 30px; padding: 25px; text-align: center; border: 1px solid #edf2f6; }
+        .orthographic-view img { width: 100%; border-radius: 20px; display: block; }
+
+        /* 갤러리 아이템 */
+        .gallery-item { background: white; border-radius: 35px; padding: 30px; border: 2px solid #f0f6ff; margin-bottom: 35px; transition: 0.3s; }
+        .gallery-item:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(136, 170, 255, 0.1); }
+        .gallery-item img { width: 100%; border-radius: 25px; margin-bottom: 20px; }
+        
+        .tag { display: inline-block; background: #f0f6ff; color: #88aaff; padding: 5px 16px; border-radius: 50px; font-size: 0.8em; font-weight: 700; margin-bottom: 12px; }
+        .audio-player { width: 100%; margin-top: 15px; }
+        .intent { background: #fafcfe; padding: 35px; border-radius: 30px; border: 2px solid #eef3f8; color: #6a7c8a; line-height: 1.8; font-style: italic; }
     </style>
 </head>
 <body>
-    <div class="star star1"></div><div class="star star2"></div><div class="star star3"></div><div class="star star4"></div>
+    <div class="star star1"></div><div class="star star2"></div>
+    <div class="star star3"></div><div class="star star4"></div>
+    <div class="star star5"></div>
 
     <div class="container">
         <h1>Echo-mo</h1>
         <p class="intro">세상의 모든 소리를 음악으로 만드는 감성 수집가</p>
+        
         <img src="echomo.jpg" alt="에코모 메인" class="character-img">
 
         <div class="section">
-            <h3>🎼 소리 갤러리</h3>
-            <div class="gallery-item">
-                <span class="tag">CITY</span>
-                <img src="city.jpg" alt="도시">
-                <p><strong>도시의 심장 소리</strong></p>
-                <audio class="audio-player" controls>
-                    <source src="city.mp3" type="audio/mpeg">
-                    <source src="./city.mp3" type="audio/mpeg">
-                    <source src="https://seoseocrafter-dot.github.io/2026113388-lee-seobean/city.mp3" type="audio/mpeg">
-                </audio>
-            </div>
+            <h3>🎼 캐릭터 소개</h3>
+            <p>에코모는 하얀 모찌처럼 말랑한 외형을 가진 <strong>밤의 음악가</strong>입니다. 커다란 헤드폰을 통해 세상의 소리를 기록하며 자신만의 음악 세계를 구축합니다.</p>
+        </div>
 
-            <div class="gallery-item">
-                <span class="tag">FOREST</span>
-                <img src="forest.jpg" alt="숲">
-                <p><strong>자연의 자장가</strong></p>
-                <audio class="audio-player" controls>
-                    <source src="forest.mp3" type="audio/mpeg">
-                    <source src="./forest.mp3" type="audio/mpeg">
-                    <source src="https://seoseocrafter-dot.github.io/2026113388-lee-seobean/forest.mp3" type="audio/mpeg">
-                </audio>
+        <div class="section">
+            <h3>🎼 캐릭터 삼면도</h3>
+            <div class="orthographic-view">
+                <img src="three_view.jpg" alt="에코모 삼면도">
             </div>
+        </div>
 
-            <div class="gallery-item">
-                <span class="tag">RETRO</span>
-                <img src="retro.jpg" alt="레트로">
-                <p><strong>추억의 메아리</strong></p>
-                <audio class="audio-player" controls>
-                    <source src="retro.mp3" type="audio/mpeg">
-                    <source src="./retro.mp3" type="audio/mpeg">
-                    <source src="https://seoseocrafter-dot.github.io/2026113388-lee-seobean/retro.mp3" type="audio/mpeg">
-                </audio>
+        <div class="section">
+            <h3>🎼 소리 수집 갤러리</h3>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <span class="tag">CITY</span>
+                    <img src="city.jpg" alt="도시">
+                    <p><strong>도시의 심장 소리</strong></p>
+                    <audio class="audio-player" controls>
+                        <source src="city.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="tag">FOREST</span>
+                    <img src="forest.jpg" alt="숲">
+                    <p><strong>자연의 자장가</strong></p>
+                    <audio class="audio-player" controls>
+                        <source src="forest.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="gallery-item">
+                    <span class="tag">RETRO</span>
+                    <img src="retro.jpg" alt="레트로">
+                    <p><strong>추억의 메아리</strong></p>
+                    <audio class="audio-player" controls>
+                        <source src="retro.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
             </div>
+        </div>
+
+        <div class="section">
+            <h3>🎼 제작 의도 ⭐</h3>
+            <div class="intent">"현대인의 바쁜 일상 속에서 사라져가는 소소한 감정들을 '음악'으로 보존하고자 합니다. 에코모를 통해 따뜻한 위로를 경험하는 것이 목표입니다."</div>
         </div>
     </div>
 </body>
